@@ -46,7 +46,7 @@ import (
 )
 
 type fakeExecutor struct {
-	t             *testing.T
+	t             *testing.D
 	testName      string
 	errorData     string
 	stdoutData    string
