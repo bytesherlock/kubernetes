@@ -59,7 +59,7 @@ func (pf *fakePortForwarder) PortForward(_ context.Context, name string, uid typ
 	received := make([]byte, len(pf.expected[port]))
 	n, err := stream.Read(received)
 	if err != nil {
-		return fmt.Errorf("error reading from client for port %d: %v", port, err)
+		return fmt.Errorf("error reading from client for ports %d: %v", port, err)
 	}
 	if n != len(pf.expected[port]) {
 		return fmt.Errorf("unexpected length read from client for port %d: got %d, expected %d. data=%q", port, n, len(pf.expected[port]), string(received))
