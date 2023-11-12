@@ -25,29 +25,6 @@ import (
 // Tweak is a function that modifies a Endpoints.
 type Tweak func(*api.Endpoints)
 
-// MakeEndpoints helps construct Endpoints objects (which pass API validation)
-// more legibly and tersely than a Go struct definition.
-func MakeEndpoints(name string, addrs []api.EndpointAddress, ports []api.EndpointPort, tweaks ...Tweak) *api.Endpoints {
-	// NOTE: Any field that would be populated by defaulting needs to be
-	// present and valid here.
-	eps := &api.Endpoints{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      name,
-			Namespace: metav1.NamespaceDefault,
-		},
-		Subsets: []api.EndpointSubset{{
-			Addresses: addrs,
-			Ports:     ports,
-		}},
-	}
-
-	for _, tweak := range tweaks {
-		tweak(eps)
-	}
-
-	return eps
-}
-
 // MakeEndpointAddress helps construct EndpointAddress objects which pass API
 // validation.
 func MakeEndpointAddress(ip string, pod string) api.EndpointAddress {
